@@ -22,6 +22,16 @@ class ProductController extends Controller
     {
         // getting errors from $request->validate([]); 
 
+        // $request->validate([
+        //     'name' => 'required',
+        //     'slug' => 'required',
+        //     'description' => 'required', 
+        //     'image' => 'required',
+        //     'brand' => 'required',
+        //     'category' => 'required',
+        //     'price' => 'required' 
+        // ]);
+
         return Product::create($request->all());
     }
 
