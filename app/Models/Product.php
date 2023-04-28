@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory; 
+    
+    // the "fillable" property defines which fields are used when adding/updating data
     protected $fillable = [
         'name',
         'slug',
@@ -17,4 +19,7 @@ class Product extends Model
         'category',
         'price' 
     ];
+
+    public $timestamps = false;
+    
 }

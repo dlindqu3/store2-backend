@@ -10,6 +10,11 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        return User::all(); 
+    }
+
     public function register(Request $request){
 
         // FROM LARAVEL DOCUMENTATION: 

@@ -18,7 +18,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade'); // if a user is deleted, his child cart is also deleted
-            $table->decimal("totalCost", 7, 2); 
+            $table->decimal("total_cost", 7, 2)->default(0); 
         });
     }
 
