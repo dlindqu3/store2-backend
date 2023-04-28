@@ -2,6 +2,7 @@
 
 
 use App\Models\Product;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
@@ -25,6 +26,13 @@ Route::get("/products/{id}", [ProductController::class, 'show']);
 Route::put("/products/{id}", [ProductController::class, 'update']);
 Route::delete("/products/{id}", [ProductController::class, 'destroy']);
 
+Route::get("/carts", [CartController::class, 'index']);
+Route::post("/carts", [CartController::class, 'store']);
+Route::get("/carts/{id}", [CartController::class, 'show']);
+Route::put("/carts/{id}", [CartController::class, 'update']);
+Route::delete("/carts/{id}", [CartController::class, 'destroy']);
+
+Route::get("/user/all", [AuthController::class, 'index']);
 Route::post("/user/register", [AuthController::class, 'register']);
 Route::post("/user/login", [AuthController::class, 'login']);
 Route::post("/user/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');

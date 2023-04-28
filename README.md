@@ -25,7 +25,8 @@
     - php artisan make:migration User
     - change fields within "up" function of most recent migration file
     - php artisan migrate
-
+- refresh migrations: 
+    - php artisan migrate:refresh
 
 
 ## citations 
@@ -35,3 +36,4 @@
 4. Stack Overflow, "What does onDelete('cascade') mean?", [link](https://stackoverflow.com/questions/43094543/what-does-ondeletecascade-mean)
 5. Yogesh Singh, "How to add Foreign key in Migration – Laravel", [link](https://makitweb.com/how-to-add-foreign-key-in-migration-laravel/)
 6. The Codeholic, "Build and Deploy E-commerce Website with Laravel and Vue.js", [link](https://www.youtube.com/watch?v=jffKw_NMfnw) 
+7. Stack Overflow, "Laravel migration default value", [link](https://stackoverflow.com/questions/37662955/laravel-migration-default-value) 
