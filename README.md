@@ -31,3 +31,7 @@
 ## citations 
 1. Traversy Media, "Laravel 8 REST API With Sanctum Authentication", [link](https://www.youtube.com/watch?v=MT-GJQIY3EU)
 2. Stack Overflow, "Call to a member function tokens() on null on Laravel Sanctum", [link](https://stackoverflow.com/questions/63351532/call-to-a-member-function-tokens-on-null-on-laravel-sanctum)
+3. Code With Dary, "Eloquent One To One Relationship | Laravel For Beginners | Learn Laravel", [link](https://www.youtube.com/watch?v=sxGiIxf0Cgw)
+4. Stack Overflow, "What does onDelete('cascade') mean?", [link](https://stackoverflow.com/questions/43094543/what-does-ondeletecascade-mean)
+5. Yogesh Singh, "How to add Foreign key in Migration – Laravel", [link](https://makitweb.com/how-to-add-foreign-key-in-migration-laravel/)
+6. The Codeholic, "Build and Deploy E-commerce Website with Laravel and Vue.js", [link](https://www.youtube.com/watch?v=jffKw_NMfnw) 
