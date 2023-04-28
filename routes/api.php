@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Models\Product;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
@@ -31,6 +31,12 @@ Route::post("/carts", [CartController::class, 'store']);
 Route::get("/carts/{id}", [CartController::class, 'show']);
 Route::put("/carts/{id}", [CartController::class, 'update']);
 Route::delete("/carts/{id}", [CartController::class, 'destroy']);
+
+Route::get("/cart_items", [CartItemController::class, 'index']);
+Route::post("/cart_items", [CartItemController::class, 'store']);
+Route::get("/cart_items/{id}", [CartItemController::class, 'show']);
+Route::put("/cart_items/{id}", [CartItemController::class, 'update']);
+Route::delete("/cart_items/{id}", [CartItemController::class, 'destroy']);
 
 Route::get("/user/all", [AuthController::class, 'index']);
 Route::post("/user/register", [AuthController::class, 'register']);
