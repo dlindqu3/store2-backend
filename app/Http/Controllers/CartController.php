@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -28,9 +29,13 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        return Cart::find($id); 
+    public function show(string $user_id) 
+    {   
+
+        // can see table names in migration files
+        $sql = DB::select('select * from carts where user_id = :id', ['id' => $user_id]);
+
+        return $sql; 
     }
 
     /**
