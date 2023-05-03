@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CartItem; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartItemController extends Controller
 {
@@ -28,9 +29,11 @@ class CartItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $cart_id)
     {
-        return CartItem::find($id); 
+        // returns an array of cart_item objects
+        $sql = DB::select('select * from cart_items where cart_id = :id', ['id' => $cart_id]);
+        return $sql;
     }
 
     /**

@@ -23,11 +23,11 @@ class AuthController extends Controller
 
         // so, un-comment this once I start the xhr requests from react 
 
-        // $fields = $request->validate([
-        //     'username' => 'required|string', 
-        //     'email' => 'required|string|unique:users,email',
-        //     'password' => 'required|string|confirmed'
-        // ]);
+        $fields = $request->validate([
+            'username' => 'required|string', 
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|min:8'
+        ]);
 
         $user = User::create([
             'username' => $request['username'],
