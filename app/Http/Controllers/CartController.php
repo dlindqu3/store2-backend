@@ -43,9 +43,9 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Cart::find($id);
-        $product->update($request->all());
-        return $product;
+        $cart = Cart::find($id);
+        $cart->update($request->all());
+        return $cart;
     }
 
     /**

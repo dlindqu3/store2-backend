@@ -36,6 +36,17 @@ class CartItemController extends Controller
         return $sql;
     }
 
+
+    public function get_cart_item_with_cart_id_and_product_id(string $cart_id, string $product_id)
+    {
+        // returns an array of cart_item objects
+        $sql = CartItem::select('*')
+        ->where('cart_id', '=', $cart_id)
+        ->where('product_id', '=', $product_id)
+        ->get();
+
+        return $sql;
+    }
     /**
      * Update the specified resource in storage.
      */
