@@ -10,8 +10,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         return User::all(); 
     }
 
