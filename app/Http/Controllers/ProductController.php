@@ -61,4 +61,23 @@ class ProductController extends Controller
         // returns 1 if delete successful and 0 if not 
         return Product::destroy($id);
     }
+
+    public function get_products_in_cart(Request $request)
+    {
+        $res = json_decode($request->getContent(), true);
+
+        $sql = Product::select('*')
+        ->whereIn('id', $res["productIds"])
+        ->get();
+
+        return $sql;
+
+        // sample $res object: 
+        // $res = {
+        //     "productIds": [
+        //       5,
+        //       6
+        //     ]
+        //   }
+    }
 }

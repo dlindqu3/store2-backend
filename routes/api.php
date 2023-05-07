@@ -32,8 +32,10 @@ Route::post("/user/register", [AuthController::class, 'register']);
 Route::post("/user/login", [AuthController::class, 'login']);
 
 // protected routes 
-// to access these routes, 
+// to access these routes, add a sanctum token in request "Bearer" header 
 Route::group([ 'middleware' => ['auth:sanctum']], function () {
+
+    Route::post("/products/filter", [ProductController::class, 'get_products_in_cart']);
 
     Route::get("/carts", [CartController::class, 'index']);
     Route::post("/carts", [CartController::class, 'store']);
@@ -43,6 +45,7 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
 
     Route::get("/cart_items", [CartItemController::class, 'index']);
     Route::post("/cart_items", [CartItemController::class, 'store']);
+    // get all cart items for a given cart.id: 
     Route::get("/cart_items/{id}", [CartItemController::class, 'show']);
     Route::get("/cart_items/{cart_id}/{product_id}", [CartItemController::class, 'get_cart_item_with_cart_id_and_product_id']);
     Route::put("/cart_items/{id}", [CartItemController::class, 'update']);
