@@ -14,6 +14,10 @@ class Cart extends Model
         'total_cost'
     ];
 
+    protected $casts = [
+        'total_cost' => 'float',
+    ];
+
     public $timestamps = false;
     
 }

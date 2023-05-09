@@ -17,7 +17,12 @@ class Product extends Model
         'image',
         'brand',
         'category',
-        'price' 
+        'price',
+    ];
+
+    // this changes the data type of "price" to float, which is understood by postgresql
+    protected $casts = [
+        'price' => 'float',
     ];
 
     public $timestamps = false;
