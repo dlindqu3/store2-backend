@@ -39,4 +39,5 @@
 7. Stack Overflow, "Laravel migration default value", [link](https://stackoverflow.com/questions/37662955/laravel-migration-default-value) 
 8. Stack Overflow, "Laravel Sanctum Auth issue", [link](https://stackoverflow.com/questions/62269976/laravel-sanctum-auth-issue)
 9. "How does Laravel sanctum expire tokens?", [link](https://stackoverflow.com/questions/64117057/how-does-laravel-sanctum-expire-tokens)
-10. Stack Overflow, "how to get property from api body in laravel?", [link], (https://stackoverflow.com/questions/65221422/how-to-get-property-from-api-body-in-laravel)
+10. Stack Overflow, "how to get property from api body in laravel?", [link](https://stackoverflow.com/questions/65221422/how-to-get-property-from-api-body-in-laravel)
+11. The Codeholic, "Stripe Complete Checkout Process in Laravel", [link](https://www.youtube.com/watch?v=J13Xe939Bh8)
