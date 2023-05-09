@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
@@ -52,5 +52,7 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::delete("/cart_items/{id}", [CartItemController::class, 'destroy']);
 
     Route::post("/user/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+    Route::post("/checkout", [StripeController::class, 'handle_checkout']);
 
 });

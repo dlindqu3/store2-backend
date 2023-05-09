@@ -64,10 +64,10 @@ class ProductController extends Controller
 
     public function get_products_in_cart(Request $request)
     {
-        $res = json_decode($request->getContent(), true);
+        $req = json_decode($request->getContent(), true);
 
         $sql = Product::select('*')
-        ->whereIn('id', $res["productIds"])
+        ->whereIn('id', $req["productIds"])
         ->get();
 
         return $sql;
