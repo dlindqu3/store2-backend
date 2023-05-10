@@ -81,36 +81,40 @@ class StripeController extends Controller
 
         if ($event->type === "payment_intent.succeeded"){
         
-            $resObj["event"] = $event; 
+            $intent_success_obj = [];
+            $intent_success_obj["event"] = $event;
+            return $intent_success_obj;
+            
+            // $resObj["event"] = $event; 
             
             
-            $current_email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
-            $current_address = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"];
+            // $current_email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
+            // $current_address = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"];
             
-            // get user.id associated with the $current_email
-            $current_user = User::where('email', $current_email)->first();
-            $current_user_id = $current_user["id"];
+            // // get user.id associated with the $current_email
+            // $current_user = User::where('email', $current_email)->first();
+            // $current_user_id = $current_user["id"];
 
-            $new_order_data = [
-                "user_id" => $current_user_id,
-                "total_cost"=> $event["data"]["object"]["charges"]["data"][0]["amount"] / 100,
-                "address_line_one"=> $current_address["line1"],
-                "address_line_two"=> $current_address["line2"],
-                "city" => $current_address["city"],
-                "state" => $current_address["state"],
-                "postal_code" => $current_address["postal_code"],
-                "country" => $current_address["country"]
-            ];
+            // $new_order_data = [
+            //     "user_id" => $current_user_id,
+            //     "total_cost"=> $event["data"]["object"]["charges"]["data"][0]["amount"] / 100,
+            //     "address_line_one"=> $current_address["line1"],
+            //     "address_line_two"=> $current_address["line2"],
+            //     "city" => $current_address["city"],
+            //     "state" => $current_address["state"],
+            //     "postal_code" => $current_address["postal_code"],
+            //     "country" => $current_address["country"]
+            // ];
 
-            // create new ORDER object 
-            $this->store_order_with_arg($new_order_data);
+            // // create new ORDER object 
+            // $this->store_order_with_arg($new_order_data);
 
-            // delete user's current CART 
+            // // delete user's current CART 
 
-            // create new CART for user 
+            // // create new CART for user 
 
-            // MUST RETURN SOMETHING FOR STRIPE WEBHOOK TO WORK 
-            return $resObj;
+            // // MUST RETURN SOMETHING FOR STRIPE WEBHOOK TO WORK 
+            // return $resObj;
         } 
         http_response_code(200);
     }
