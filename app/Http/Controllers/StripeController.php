@@ -81,10 +81,11 @@ class StripeController extends Controller
 
         if ($event->type === "payment_intent.succeeded"){
         
+            // THIS STILL DIDN'T FIX THE PROBLEM 
             $intent_success_obj = [];
             $intent_success_obj["event"] = $event;
-            return $intent_success_obj;
-            
+            return response()->json($intent_success_obj, 200);
+
             // $resObj["event"] = $event; 
             
             
@@ -115,7 +116,10 @@ class StripeController extends Controller
 
             // // MUST RETURN SOMETHING FOR STRIPE WEBHOOK TO WORK 
             // return $resObj;
-        } 
+        } else {
+            echo "Recieved other event type: " . $event->type;
+            return response()->json($event, 200);
+        }
         http_response_code(200);
     }
 }
