@@ -65,11 +65,12 @@ class StripeController extends Controller
         $event = null;
 
         try {
-            $event = \Stripe\Event::constructFrom(
+            $event = \Stripe\Webhook::constructEvent(
                 json_decode($request, true), 
                 $sig_header,
                 $stripe_webhook_secret
             );
+
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
             http_response_code(400);
@@ -120,7 +121,7 @@ class StripeController extends Controller
         //     echo "Recieved other event type: " . $event->type;
         //     return response()->json($event, 200);
         // }
-        // http_response_code(200);
-        return response()->json($event, 200);
+
+        http_response_code(200);
     }
 }
