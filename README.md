@@ -45,3 +45,4 @@
 13. JIMOH Mofoluwasho, "Hosting Your Laravel App on Heroku" [link](https://betterprogramming.pub/hosting-your-laravel-app-on-heroku-198764167a85)
 14. "How to get request headers in Laravel", [link](https://hackthestuff.com/article/how-to-get-request-headers-in-laravel)
 15. "Calling other function in the same controller?", [link](https://stackoverflow.com/questions/17861412/calling-other-function-in-the-same-controller)
+16. David Carr, "Handle Stripe checkout webhooks" [link](https://dcblog.dev/handle-stripe-checkout-webhooks)
