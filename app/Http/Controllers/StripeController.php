@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\Order;
 use App\Models\User;
 use Stripe;
 
 
 class StripeController extends Controller
 {
+    public function store_order_with_arg($order_data)
+    {
+        return Order::create($order_data);
+    }
+
     public function handle_checkout(Request $request)
     {
         $stripe = new \Stripe\StripeClient(env("STRIPE_PRIVATE_KEY"));
@@ -70,22 +77,40 @@ class StripeController extends Controller
         }
         // Handle the event
        
+        $resObj = [];
+
         if ($event->type === "payment_intent.succeeded"){
         
-            $current_email = $event["object"]["charges"]["data"]["billing_details"]["email"];
-            $current_address = $event["object"]["charges"]["data"]["billing_details"]["address"];
+            $resObj["event"] = $event; 
+            
+            
+            $current_email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
+            $current_address = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"];
             
             // get user.id associated with the $current_email
-            $current_user = User::where('email', $request["email"])->first();
+            $current_user = User::where('email', $current_email)->first();
             $current_user_id = $current_user["id"];
 
-            // create an ORDER object 
+            $new_order_data = [
+                "user_id" => $current_user_id,
+                "total_cost"=> $event["data"]["object"]["charges"]["data"][0]["amount"] / 100,
+                "address_line_one"=> $current_address["line1"],
+                "address_line_two"=> $current_address["line2"],
+                "city" => $current_address["city"],
+                "state" => $current_address["state"],
+                "postal_code" => $current_address["postal_code"],
+                "country" => $current_address["country"]
+            ];
+
+            // create new ORDER object 
+            $this->store_order_with_arg($new_order_data);
 
             // delete user's current CART 
 
             // create new CART for user 
 
-
+            // MUST RETURN SOMETHING FOR STRIPE WEBHOOK TO WORK 
+            return $resObj;
         } 
         http_response_code(200);
     }
