@@ -49,4 +49,31 @@ class StripeController extends Controller
 
         return $checkout_session->url; 
     }
+
+    public function stripe_webhook(Request $request)
+    {
+        $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
+        $event = null;
+
+        try {
+            $event = \Stripe\Event::constructFrom(
+                json_decode($request, true)
+            );
+        } catch(\UnexpectedValueException $e) {
+            // Invalid payload
+            http_response_code(400);
+            exit();
+        }
+        // Handle the event
+       
+        if ($event->type === "payment_intent.succeeded"){
+            // $currentEmail = $event.data.object.charges.data[0].billing_details.email;
+
+
+        } else if ($event->type === "payment_intent.payment_failed"){
+
+            
+        }
+        http_response_code(200);
+    }
 }

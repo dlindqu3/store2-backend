@@ -54,5 +54,6 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::post("/user/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::post("/checkout", [StripeController::class, 'handle_checkout']);
+    Route::post("/stripe_webhook", [StripeController::class, 'stripe_webhook']);
 
 });
