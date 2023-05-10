@@ -53,11 +53,14 @@ class StripeController extends Controller
     public function stripe_webhook(Request $request)
     {
         $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;
 
         try {
             $event = \Stripe\Event::constructFrom(
-                json_decode($request, true)
+                json_decode($request, true), 
+                $sig_header,
+                $stripe_webhook_secret
             );
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
@@ -71,7 +74,7 @@ class StripeController extends Controller
 
 
         } else if ($event->type === "payment_intent.payment_failed"){
-
+            
             
         }
         http_response_code(200);
