@@ -32,6 +32,8 @@ Route::get("/user/all", [AuthController::class, 'index']);
 Route::post("/user/register", [AuthController::class, 'register']);
 Route::post("/user/login", [AuthController::class, 'login']);
 
+Route::post("/stripe_webhook", [StripeController::class, 'stripe_webhook']);
+
 // protected routes 
 // to access these routes, add a sanctum token in request "Bearer" header 
 Route::group([ 'middleware' => ['auth:sanctum']], function () {
@@ -61,6 +63,4 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::delete("/orders/{id}", [OrderController::class, 'destroy']);
 
     Route::post("/checkout", [StripeController::class, 'handle_checkout']);
-    Route::post("/stripe_webhook", [StripeController::class, 'stripe_webhook']);
-
 });
