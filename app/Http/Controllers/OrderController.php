@@ -31,11 +31,6 @@ class OrderController extends Controller
         return Order::find($id); 
     }
 
-    public function show_with_arg()
-    {
-        
-    }
-
     /**
      * Update the specified resource in storage.
      */
