@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Stripe;
 
 
@@ -70,13 +71,22 @@ class StripeController extends Controller
         // Handle the event
        
         if ($event->type === "payment_intent.succeeded"){
-            // $currentEmail = $event.data.object.charges.data[0].billing_details.email;
+        
+            $current_email = $event["object"]["charges"]["data"]["billing_details"]["email"];
+            $current_address = $event["object"]["charges"]["data"]["billing_details"]["address"];
+            
+            // get user.id associated with the $current_email
+            $current_user = User::where('email', $request["email"])->first();
+            $current_user_id = $current_user["id"];
+
+            // create an ORDER object 
+
+            // delete user's current CART 
+
+            // create new CART for user 
 
 
-        } else if ($event->type === "payment_intent.payment_failed"){
-            
-            
-        }
+        } 
         http_response_code(200);
     }
 }

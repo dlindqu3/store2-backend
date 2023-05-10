@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CartController;
@@ -52,6 +53,12 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::delete("/cart_items/{id}", [CartItemController::class, 'destroy']);
 
     Route::post("/user/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+    Route::get("/orders", [OrderController::class, 'index']);
+    Route::post("/orders", [OrderController::class, 'store']);
+    Route::get("/orders/{id}", [OrderController::class, 'show']);
+    Route::put("/orders/{id}", [OrderController::class, 'update']);
+    Route::delete("/orders/{id}", [OrderController::class, 'destroy']);
 
     Route::post("/checkout", [StripeController::class, 'handle_checkout']);
     Route::post("/stripe_webhook", [StripeController::class, 'stripe_webhook']);
