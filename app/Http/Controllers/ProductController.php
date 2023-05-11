@@ -70,6 +70,8 @@ class ProductController extends Controller
         ->whereIn('id', $req["productIds"])
         ->get();
 
+        info("sql data from products " . $sql);
+
         return $sql;
 
         // sample $res object: 
