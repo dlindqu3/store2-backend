@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Order;
 use App\Models\User;
 use Stripe;
@@ -61,12 +62,13 @@ class StripeController extends Controller
     public function stripe_webhook(Request $request)
     {
         $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
+        $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;
 
         try {
             $event = \Stripe\Webhook::constructEvent(
-                json_decode($request, true), 
+                $payload,
                 $sig_header,
                 $stripe_webhook_secret
             );
@@ -75,6 +77,9 @@ class StripeController extends Controller
             // Invalid payload
             http_response_code(400);
             exit();
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            return response('', 400);
         }
         // Handle the event
        
@@ -122,6 +127,8 @@ class StripeController extends Controller
         //     return response()->json($event, 200);
         // }
 
-        http_response_code(200);
+        return Response::json([ 
+            'event' => $event
+        ], 201);
     }
 }
