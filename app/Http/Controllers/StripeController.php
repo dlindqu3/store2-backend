@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+require_once '../vendor/autoload.php';
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Order;
@@ -61,7 +61,8 @@ class StripeController extends Controller
 
     public function stripe_webhook()
     {
-        $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
+        \Stripe\Stripe::setApiKey(env("STRIPE_PRIVATE_KEY"));
+        $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;
@@ -70,16 +71,19 @@ class StripeController extends Controller
             $event = \Stripe\Webhook::constructEvent(
                 $payload,
                 $sig_header,
-                $stripe_webhook_secret
+                $endpoint_secret
             );
 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
-            return response(["invalidPayloadErr" => $e], 400);
+            echo '⚠️ Webhook has invalid payload.';
+            http_response_code(400);
             exit();
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
-            return response(["invalidSigErr" => $e], 400);
+            echo '⚠️  Webhook error while validating signature.';
+            http_response_code(400);
+            exit();
         }
         // Handle the event
        
