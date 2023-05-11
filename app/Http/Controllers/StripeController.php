@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+// require_once '../vendor/autoload.php';
+// use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Order;
 use App\Models\User;
 use Stripe;
@@ -49,8 +51,8 @@ class StripeController extends Controller
             "customer_email" => $email,
             'line_items' => $line_items,
             'mode' => 'payment',
-            'success_url' => 'http://localhost:3000/checkout-success',
-            'cancel_url' => 'http://localhost:3000/checkout-cancelled',
+            'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
+            'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
           ]);
           
 
@@ -58,63 +60,46 @@ class StripeController extends Controller
         return $checkout_session->url; 
     }
 
-    public function stripe_webhook(Request $request)
+    public function stripe_webhook()
     {
-        $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
+        \Stripe\Stripe::setApiKey(env("STRIPE_PRIVATE_KEY"));
+        
+        $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
+        $m1 = "endpoint secret " . $endpoint_secret;
+
+        $payload = @file_get_contents('php://input');
+        $m2 = "payload " . $payload;
+
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $m3 = "sig header " . $sig_header;
+
         $event = null;
 
         try {
-            $event = \Stripe\Event::constructFrom(
-                json_decode($request, true), 
+            $event = \Stripe\Webhook::constructEvent(
+                $payload,
                 $sig_header,
-                $stripe_webhook_secret
+                $endpoint_secret
             );
+        
+            $m4 = "event " . $event;
+
+
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
+            file_put_contents("php://stderr", "⚠️ Webhook has invalid payload.\n");
+            echo '⚠️ Webhook has invalid payload.';
+            http_response_code(400);
+            exit();
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            file_put_contents("php://stderr", "⚠️  Webhook error while validating signature.\n");
+            echo '⚠️  Webhook error while validating signature.';
             http_response_code(400);
             exit();
         }
         // Handle the event
-       
-        $resObj = [];
+      http_response_code(200);
 
-        if ($event->type === "payment_intent.succeeded"){
-        
-            $test_obj = []; 
-
-            $test_obj["eventFromSuccess"] = $event;
-            // $resObj["event"] = $event; 
-            
-            
-            // $current_email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
-            // $current_address = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"];
-            
-            // // get user.id associated with the $current_email
-            // $current_user = User::where('email', $current_email)->first();
-            // $current_user_id = $current_user["id"];
-
-            // $new_order_data = [
-            //     "user_id" => $current_user_id,
-            //     "total_cost"=> $event["data"]["object"]["charges"]["data"][0]["amount"] / 100,
-            //     "address_line_one"=> $current_address["line1"],
-            //     "address_line_two"=> $current_address["line2"],
-            //     "city" => $current_address["city"],
-            //     "state" => $current_address["state"],
-            //     "postal_code" => $current_address["postal_code"],
-            //     "country" => $current_address["country"]
-            // ];
-
-            // // create new ORDER object 
-            // $this->store_order_with_arg($new_order_data);
-
-            // // delete user's current CART 
-
-            // // create new CART for user 
-
-            // // MUST RETURN SOMETHING FOR STRIPE WEBHOOK TO WORK 
-            // return $resObj;
-        } 
-        http_response_code(200);
     }
 }
