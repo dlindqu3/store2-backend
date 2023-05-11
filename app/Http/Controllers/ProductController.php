@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use IlluminateSupportFacadesLog; 
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,8 +12,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // info("index get all products called");
-        // echo "index get all products called echo"; 
         return Product::all(); 
     }
 

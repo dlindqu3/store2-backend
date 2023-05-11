@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Support\Facades\Log;
-// use Monolog\Logger;
 use App\Models\Cart; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,15 +31,8 @@ class CartController extends Controller
      */
     public function show(string $user_id) 
     {   
-
-        // $logger = Log::getLogger();
-
         // can see table names in migration files
         $sql = DB::select('select * from carts where user_id = :id', ['id' => $user_id]);
-        // $logger->info('current cart: ' . $sql);
-
-        info("sql cart: " . $sql);
-        echo "echo cart: " . $sql; 
 
         return $sql; 
     }
