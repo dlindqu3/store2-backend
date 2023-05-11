@@ -63,8 +63,14 @@ class StripeController extends Controller
     {
         \Stripe\Stripe::setApiKey(env("STRIPE_PRIVATE_KEY"));
         $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
+        echo "endpoint_secret " . $endpoint_secret;
+
         $payload = @file_get_contents('php://input');
+        echo "payload " . $payload;
+        
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        echo "sig header: " . $sig_header;
+        
         $event = null;
 
         try {
@@ -73,7 +79,7 @@ class StripeController extends Controller
                 $sig_header,
                 $endpoint_secret
             );
-
+            echo "event: " . $event; 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
             echo '⚠️ Webhook has invalid payload.';
