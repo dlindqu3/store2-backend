@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 require_once '../vendor/autoload.php';
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Order;
@@ -63,17 +64,19 @@ class StripeController extends Controller
     {
         \Stripe\Stripe::setApiKey(env("STRIPE_PRIVATE_KEY"));
         $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
-        file_put_contents("php://stderr", "endpoint secret: $endpoint_secret\n");
-        echo "endpoint secret " . $endpoint_secret;
+        // file_put_contents("php://stderr", "endpoint secret: $endpoint_secret\n");
+        $m1 = "endpoint secret " . $endpoint_secret;
+        Log::info($m1);
 
         $payload = @file_get_contents('php://input');
-        file_put_contents("php://stderr", "payload: $payload\n");
-        echo "payload " . $payload;
-
+        // file_put_contents("php://stderr", "payload: $payload\n");
+        $m2 = "payload " . $payload;
+        Log::info($m2);
 
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
-        file_put_contents("php://stderr", "sig header: $sig_header\n");
-        echo "sig header " . $sig_header;
+        // file_put_contents("php://stderr", "sig header: $sig_header\n");
+        $m3 = "sig header " . $sig_header;
+        Log::info($m3);
 
         $event = null;
 
@@ -83,8 +86,9 @@ class StripeController extends Controller
                 $sig_header,
                 $endpoint_secret
             );
-            file_put_contents("php://stderr", "event: $event\n"); 
-            echo "event " . $event;
+            // file_put_contents("php://stderr", "event: $event\n"); 
+            $m4 = "event " . $event;
+            Log::info($m4);
 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
