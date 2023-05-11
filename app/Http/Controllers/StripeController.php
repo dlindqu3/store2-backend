@@ -75,11 +75,11 @@ class StripeController extends Controller
 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
-            http_response_code(400);
+            return response(["invalidPayloadErr" => $e], 400);
             exit();
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
-            return response('', 400);
+            return response(["invalidSigErr" => $e], 400);
         }
         // Handle the event
        
