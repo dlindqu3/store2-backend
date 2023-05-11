@@ -63,20 +63,30 @@ class StripeController extends Controller
     public function stripe_webhook()
     {
         \Stripe\Stripe::setApiKey(env("STRIPE_PRIVATE_KEY"));
+        
+        info("stripe webhook called");
+        echo "stripe webhook called echo"; 
+
         $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
         // file_put_contents("php://stderr", "endpoint secret: $endpoint_secret\n");
         $m1 = "endpoint secret " . $endpoint_secret;
-        Log::info($m1);
+        info($m1);
+        echo $m1 . " echo"; 
+        // Log::info($m1);
 
         $payload = @file_get_contents('php://input');
         // file_put_contents("php://stderr", "payload: $payload\n");
         $m2 = "payload " . $payload;
-        Log::info($m2);
+        info($m2);
+        echo $m2 . " echo"; 
+        // Log::info($m2);
 
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         // file_put_contents("php://stderr", "sig header: $sig_header\n");
         $m3 = "sig header " . $sig_header;
-        Log::info($m3);
+        info($m3);
+        echo $m3 . " echo"; 
+        // Log::info($m3);
 
         $event = null;
 
@@ -88,7 +98,9 @@ class StripeController extends Controller
             );
             // file_put_contents("php://stderr", "event: $event\n"); 
             $m4 = "event " . $event;
-            Log::info($m4);
+            info($m4);
+            echo $m4 . " echo"; 
+            // Log::info($m4);
 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
