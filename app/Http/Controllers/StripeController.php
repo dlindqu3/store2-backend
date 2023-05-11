@@ -50,8 +50,8 @@ class StripeController extends Controller
             "customer_email" => $email,
             'line_items' => $line_items,
             'mode' => 'payment',
-            'success_url' => 'http://localhost:3000/checkout-success',
-            'cancel_url' => 'http://localhost:3000/checkout-cancelled',
+            'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
+            'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
           ]);
           
 
@@ -59,7 +59,7 @@ class StripeController extends Controller
         return $checkout_session->url; 
     }
 
-    public function stripe_webhook(Request $request)
+    public function stripe_webhook()
     {
         $stripe_webhook_secret = env("STRIPE_WEBHOOK_SECRET");
         $payload = @file_get_contents('php://input');
@@ -128,9 +128,7 @@ class StripeController extends Controller
         // }
 
         return Response::json([ 
-            'whSecret' => $stripe_webhook_secret,
-            'payload' => $payload, 
-            'sig_header' => $sig_header
+            'event' => $event
         ], 201);
     }
 }
