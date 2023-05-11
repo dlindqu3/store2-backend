@@ -128,7 +128,9 @@ class StripeController extends Controller
         // }
 
         return Response::json([ 
-            'event' => $event
+            'whSecret' => $stripe_webhook_secret,
+            'payload' => $payload, 
+            'sig_header' => $sig_header
         ], 201);
     }
 }
