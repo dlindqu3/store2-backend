@@ -65,14 +65,17 @@ class StripeController extends Controller
         $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
         $m1 = "endpoint secret " . $endpoint_secret;
         info("endpoint secret from stripe webhook: " . $m1);
+        ## works 
 
         $payload = @file_get_contents('php://input');
         $m2 = "payload " . $payload;
         info("payload from stripe webhook: " . $m2);
+        ## works 
 
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $m3 = "sig header " . $sig_header;
         info("sig header from stripe webhook: " . $m3);
+        ## works 
 
         $event = null;
 
@@ -83,7 +86,8 @@ class StripeController extends Controller
                 $endpoint_secret
             );
 
-            info("event from stripe webhook: " . $event);
+            // info("event from stripe webhook: " . $event);
+            ## works 
 
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
@@ -96,6 +100,11 @@ class StripeController extends Controller
             http_response_code(400);
             exit();
         }
+
+        if ($event->type === "payment_intent.succeeded"){
+            info("PAYMENT INTENT SUCCEEDED: " . $event);
+        }
+
         http_response_code(200);
     }
 }
