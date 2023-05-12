@@ -125,6 +125,8 @@ class StripeController extends Controller
             $items_products_data = $payload["data"]["object"]["metadata"]["itemsProductsData"];
             info('$items_products_data from webhook $payload metadata: ' . $items_products_data);
 
+            $ipd2 = json_decode($items_products_data);
+            info('$ipd2: ' . $ipd2); 
             ## get user id with email 
 
             ## create order 
