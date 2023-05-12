@@ -47,3 +47,4 @@
 15. "Calling other function in the same controller?", [link](https://stackoverflow.com/questions/17861412/calling-other-function-in-the-same-controller)
 16. Stack Overflow, "Laravel: add `stdout` stream for logging", [link](https://stackoverflow.com/questions/70126424/laravel-add-stdout-stream-for-logging)
 17. Heroku Dev Center, "PHP Application Logging", [link](https://devcenter.heroku.com/articles/php-logging)
+18. Stack Overflow, "Is it possible to pass custom data to stripe checkout?" [link](https://stackoverflow.com/questions/55742393/is-it-possible-to-pass-custom-data-to-stripe-checkout)
