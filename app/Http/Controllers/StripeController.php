@@ -44,7 +44,7 @@ class StripeController extends Controller
         }
 
         ## NEW 
-        info("req from checkout: " . $req); 
+        // info("req from checkout: " . $req); 
 
         $checkout_session = $stripe->checkout->sessions->create([
             'shipping_address_collection' => ['allowed_countries' => ['US']],
