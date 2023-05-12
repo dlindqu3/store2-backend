@@ -70,9 +70,10 @@ class ProductController extends Controller
         ->whereIn('id', $req["productIds"])
         ->get();
 
+        ## NEW 
         info("sql data from products info " . $sql);
         error_log("sql from all products error log: " . $sql);
-        file_put_contents("php://stderr", "sql from all products file_put_contents: " . "\n");
+        file_put_contents("php://stdout", "sql from all products file_put_contents: " . "\n");
 
         return $sql;
 

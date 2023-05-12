@@ -18,7 +18,10 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    // 'default' => env('LOG_CHANNEL', 'stack'),
+
+    ##NEW
+    'default' => env('LOG_CHANNEL', 'stdout'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +55,16 @@ return [
     */
 
     'channels' => [
+
+        ## NEW 
+        'stdout' =>[
+            'driver' => 'monolog',
+            'handler' => StreamHandler::class,
+            'with' => [
+                'stream' => 'php://stdout',
+            ]
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
