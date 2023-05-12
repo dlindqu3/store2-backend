@@ -122,10 +122,9 @@ class StripeController extends Controller
             $postal_code = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["postal_code"];
             $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
 
-            // convert $payload to an array 
-            info(gettype($payload));
-            info("PAYLOAD " . $payload); 
-
+            // convert $payload from JSON to an array 
+            $payload_arr = json_decode($payload);
+            info("payload_arr: " . $payload_arr);
 
             // $items_products_data = $payload["data"]["object"]["metadata"]["itemsProductsData"];
             // info($items_products_data);
