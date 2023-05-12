@@ -53,9 +53,10 @@ class StripeController extends Controller
             'line_items' => $line_items,
             ## NEW
             // $req is itemsProductsData from frontend
-            // 'payment_intent_data' => [ 
-            //     'metadata' => json_encode($req)
-            // ],
+            // payment_method_data.metadata? 
+            'metadata' => [ 
+                'itemsProductsData' => "AAA"
+            ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
             'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
