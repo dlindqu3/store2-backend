@@ -123,8 +123,10 @@ class StripeController extends Controller
             $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
 
             $items_products_data = $payload["data"]["object"]["metadata"]["itemsProductsData"];
-            info($items_products_data);
-            info(gettype($items_products_data));
+            info(gettype($payload));
+            info("PAYLOAD " . $payload); 
+            // info($items_products_data);
+            // info(gettype($items_products_data));
             
             // $ipd2 = json_decode($items_products_data);
             // info('$ipd2: ' . $ipd2); 
