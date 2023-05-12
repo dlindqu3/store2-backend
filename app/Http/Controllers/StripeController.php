@@ -51,7 +51,7 @@ class StripeController extends Controller
             ## NEW
             // $req is itemsProductsData from frontend
             'payment_intent_data' => [ 
-                'metadata' => $req
+                'metadata' => implode($req)
             ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
