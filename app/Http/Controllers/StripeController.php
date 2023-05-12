@@ -123,10 +123,11 @@ class StripeController extends Controller
             $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
 
             $items_products_data = $payload["data"]["object"]["metadata"]["itemsProductsData"];
-            info('$items_products_data from webhook $payload metadata: ' . $items_products_data);
-
-            $ipd2 = json_decode($items_products_data);
-            info('$ipd2: ' . $ipd2); 
+            info($items_products_data);
+            info(gettype($items_products_data));
+            
+            // $ipd2 = json_decode($items_products_data);
+            // info('$ipd2: ' . $ipd2); 
             ## get user id with email 
 
             ## create order 
