@@ -48,6 +48,11 @@ class StripeController extends Controller
             'payment_method_types' => ['card'],
             "customer_email" => $email,
             'line_items' => $line_items,
+            ## NEW
+            // $req is itemsProductsData from frontend
+            'payment_intent_data' => [ 
+                'metadata' => $req
+            ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
             'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
@@ -103,6 +108,30 @@ class StripeController extends Controller
 
         if ($event->type === "payment_intent.succeeded"){
             info("PAYMENT INTENT SUCCEEDED: " . $event);
+
+            $total = $event["data"]["object"]["amount"] / 100; 
+            $email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
+            $city = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["city"];
+            $country = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["country"];
+            $line1 = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["line1"];
+            $line2 = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["line2"];
+            $postal_code = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["postal_code"];
+            $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
+
+            ## get user id with email 
+
+            ## create order 
+
+            ## send metadata with checkout -- productsItemsData 
+
+            ## create orderItems 
+
+            ## delete cart 
+
+            ## create new empty cart 
+
+
+            return $event; 
         }
 
         http_response_code(200);
