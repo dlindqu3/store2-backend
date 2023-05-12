@@ -43,6 +43,9 @@ class StripeController extends Controller
             array_push($line_items, $new_line_item);
         }
 
+        ## NEW 
+        info("req from checkout: " . $req); 
+
         $checkout_session = $stripe->checkout->sessions->create([
             'shipping_address_collection' => ['allowed_countries' => ['US']],
             'payment_method_types' => ['card'],
@@ -51,7 +54,7 @@ class StripeController extends Controller
             ## NEW
             // $req is itemsProductsData from frontend
             'payment_intent_data' => [ 
-                'metadata' => implode($req)
+                'metadata' => json_encode($req)
             ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
