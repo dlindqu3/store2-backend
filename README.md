@@ -45,3 +45,5 @@
 13. JIMOH Mofoluwasho, "Hosting Your Laravel App on Heroku" [link](https://betterprogramming.pub/hosting-your-laravel-app-on-heroku-198764167a85)
 14. "How to get request headers in Laravel", [link](https://hackthestuff.com/article/how-to-get-request-headers-in-laravel)
 15. "Calling other function in the same controller?", [link](https://stackoverflow.com/questions/17861412/calling-other-function-in-the-same-controller)
+16. Stack Overflow, "Laravel: add `stdout` stream for logging", [link](https://stackoverflow.com/questions/70126424/laravel-add-stdout-stream-for-logging)
+17. Heroku Dev Center, "PHP Application Logging", [link](https://devcenter.heroku.com/articles/php-logging)

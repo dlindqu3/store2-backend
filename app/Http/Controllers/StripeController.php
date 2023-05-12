@@ -64,12 +64,15 @@ class StripeController extends Controller
 
         $endpoint_secret = env("STRIPE_WEBHOOK_SECRET");
         $m1 = "endpoint secret " . $endpoint_secret;
+        info("endpoint secret from stripe webhook: " . $m1);
 
         $payload = @file_get_contents('php://input');
         $m2 = "payload " . $payload;
+        info("payload from stripe webhook: " . $m2);
 
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $m3 = "sig header " . $sig_header;
+        info("sig header from stripe webhook: " . $m3);
 
         $event = null;
 
@@ -80,14 +83,16 @@ class StripeController extends Controller
                 $endpoint_secret
             );
 
+            info("event from stripe webhook: " . $event);
+
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
-            file_put_contents("php://stderr", "⚠️ Webhook has invalid payload.\n");
-            echo '⚠️ Webhook has invalid payload.';
+            info('⚠️ Webhook has invalid payload.');
             http_response_code(400);
             exit();
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
+            info("⚠️ Webhook has invalid signature"); 
             http_response_code(400);
             exit();
         }
