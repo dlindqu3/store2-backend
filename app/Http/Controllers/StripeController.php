@@ -124,7 +124,8 @@ class StripeController extends Controller
 
             // convert $payload from JSON to an array 
             $payload_arr = json_decode($payload);
-            info("payload_arr: " . $payload_arr);
+            info("payload arr next line: ");
+            info($payload_arr);
 
             // $items_products_data = $payload["data"]["object"]["metadata"]["itemsProductsData"];
             // info($items_products_data);
