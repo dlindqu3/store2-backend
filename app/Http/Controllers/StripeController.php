@@ -20,13 +20,13 @@ class StripeController extends Controller
     {
         $stripe = new \Stripe\StripeClient(env("STRIPE_PRIVATE_KEY"));
 
-        $req = json_decode($request->getContent(), true);
+        $req_content = json_decode($request->getContent(), true);
 
         $line_items = []; 
 
         $email = "";
 
-        foreach($req as $key => $val) {
+        foreach($req_content as $key => $val) {
             $new_line_item = [
                 'price_data' => [
                 'currency' => 'usd',
@@ -52,10 +52,10 @@ class StripeController extends Controller
             "customer_email" => $email,
             'line_items' => $line_items,
             ## NEW
+            ## MUST SEND METADATA WITH PAYMENT INTENT METADATA 
             // $req is itemsProductsData from frontend
-            // payment_method_data.metadata? 
-            'metadata' => [ 
-                'itemsProductsData' => json_encode($req)
+            'payment_intent_data' => [ 
+                'metadata' => json_encode($req_content)
             ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
@@ -128,10 +128,8 @@ class StripeController extends Controller
             info("payload arr [id] next line: ");
             info($payload_arr["id"]);
 
-            $items_products_data = $payload_arr["data"]["object"]["metadata"]["itemsProductsData"];
-            info("items_products_data next line: ");
-            info($items_products_data);
-            info(gettype($items_products_data));
+            ## THIS DOESN'T WORK, METADATA IS EMPTY HERE, MUST SEND METADATA WITH PAYMENT INTENT METADATA 
+            // $items_products_data = $payload_arr["data"]["object"]["metadata"]["itemsProductsData"];
             
             ## create order 
 
