@@ -55,7 +55,7 @@ class StripeController extends Controller
             ## MUST SEND METADATA WITH PAYMENT INTENT METADATA 
             // $req is itemsProductsData from frontend
             'payment_intent_data' => [ 
-                'metadata' => $req_content
+                'metadata' => "AAA"
             ],
             'mode' => 'payment',
             'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
