@@ -141,8 +141,9 @@ class StripeController extends Controller
                 ->where('email', $email)
                 ->first();
             info("current user with given email: "); 
-            info(gettype($sql));
-            // info($sql); 
+            // info(gettype($sql));
+            $current_user = $sql->toArray();
+            info($current_user); 
 
             $new_order_obj = [];
             // $new_order_obj["user_id"] = ;
