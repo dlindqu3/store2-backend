@@ -57,9 +57,10 @@ class StripeController extends Controller
             'line_items' => $line_items,
             
             ## NEW, works, but need to get $req_content in correct format
+            ## json_encode will convert it to a string
             'payment_intent_data' => [ 
                    'metadata' => [ 
-                            "itemsProductsData" => $req_content
+                            "itemsProductsData" => json_encode($req_content)
                    ]
             ], 
             'mode' => 'payment',
