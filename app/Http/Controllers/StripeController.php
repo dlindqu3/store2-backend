@@ -56,8 +56,7 @@ class StripeController extends Controller
             "customer_email" => $email,
             'line_items' => $line_items,
             
-            ## NEW, works, but need to get $req_content in correct format
-            ## json_encode will convert it to a string
+            ## works
             'payment_intent_data' => [ 
                    'metadata' => [ 
                             "itemsProductsData" => json_encode($req_content)
@@ -118,6 +117,11 @@ class StripeController extends Controller
 
         if ($event->type === "payment_intent.succeeded"){
             info("PAYMENT INTENT SUCCEEDED: " . $event);
+
+            $ip_arr = json_decode($event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"]);
+            info(gettype($ip_arr));
+            info("IP ARR: "); 
+            info($ip_arr);
 
             $total = $event["data"]["object"]["amount"] / 100; 
             $email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
