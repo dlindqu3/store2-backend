@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Order;
@@ -135,9 +136,12 @@ class StripeController extends Controller
 
             ## NEW 
             ## get user_id for given email 
-            $current_user = User::show($email);
-            info("current user email: "); 
-            info($current_user["email"]); 
+            // returns an array of cart_item objects
+            $sql = DB::table("users")
+                ->where('email', $email)
+                ->first();
+            info("current user with given email: "); 
+            info($sql); 
 
             $new_order_obj = [];
             // $new_order_obj["user_id"] = ;
