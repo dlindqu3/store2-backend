@@ -48,28 +48,32 @@ class StripeController extends Controller
             array_push($line_items, $new_line_item);
         }
 
+        ## THIS WORKS 
         info("line items from checkout: "); 
         info($line_items); 
         
         //
-        // $checkout_session = $stripe->checkout->sessions->create([
-        //     'shipping_address_collection' => ['allowed_countries' => ['US']],
-        //     'payment_method_types' => ['card'],
-        //     "customer_email" => $email,
-        //     'line_items' => $line_items,
+        $checkout_session = $stripe->checkout->sessions->create([
+            'shipping_address_collection' => ['allowed_countries' => ['US']],
+            'payment_method_types' => ['card'],
+            "customer_email" => $email,
+            'line_items' => $line_items,
             
-        //     ## works
-        //     'payment_intent_data' => [ 
-        //            'metadata' => [ 
-        //                     "itemsProductsData" => json_encode($req_content)
-        //            ]
-        //     ], 
-        //     'mode' => 'payment',
-        //     'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
-        //     'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
-        //   ]);
-          
-        // return $checkout_session->url; 
+            ## WORKS
+            'payment_intent_data' => [ 
+                   'metadata' => [ 
+                            "itemsProductsData" => json_encode($req_content)
+                   ]
+            ], 
+            'mode' => 'payment',
+            'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
+            'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
+          ]);
+        
+        info("checkout url: "); 
+        info($checkout_session->url);
+
+        return $checkout_session->url; 
     }
 
     public function stripe_webhook()
