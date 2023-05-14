@@ -29,6 +29,20 @@ class StripeController extends Controller
 
         $line_items = []; 
 
+        $new_metadata = [];
+
+        foreach($req_content as $key => $val) {
+            $new_metadata_item = [
+                "cart_item_id" => $req_content[$key]["cart_item"]["id"],
+                "product_item_id" => $req_content[$key]["product_item"]["id"],
+                "email" => $req_content[$key]["user_email"]
+            ];
+            $new_metadata[$key] = $new_metadata_item;
+        }
+        
+        info("new metadata: "); 
+        info($new_metadata); 
+
         $email = "";
 
         foreach($req_content as $key => $val) {
@@ -58,11 +72,10 @@ class StripeController extends Controller
             'payment_method_types' => ['card'],
             "customer_email" => $email,
             'line_items' => $line_items,
-            
-            ## WORKS
             'payment_intent_data' => [ 
                    'metadata' => [ 
-                            "itemsProductsData" => json_encode($req_content)
+                            // stripe metadata can only be strings up to 500 characters
+                            "itemsProductsData" => json_encode($new_metadata),
                    ]
             ], 
             'mode' => 'payment',
@@ -73,7 +86,7 @@ class StripeController extends Controller
         info("checkout url: "); 
         info($checkout_session->url);
 
-        return $checkout_session->url; 
+        // return $checkout_session->url; 
     }
 
     public function stripe_webhook()
