@@ -161,14 +161,17 @@ class StripeController extends Controller
 
             ## get all cart_items for associated cart_id in metadata
             $cart_id = $event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"]["cart_id"];
+            info("cart id: "); 
+            info($cart_id); 
 
-            $sql2 = DB::table("cart_items")
-            ->where("cart_id", $cart_id)
-            ->first();
 
-            info("sql2 cart items data: "); 
-            info(gettype($sql2));
-            info($sql2); 
+            // $sql2 = DB::table("cart_items")
+            // ->where("cart_id", $cart_id)
+            // ->first();
+
+            // info("sql2 cart items data: "); 
+            // info(gettype($sql2));
+            // info($sql2); 
             // $cart_items_data = json_decode(json_encode($sql2), true);
             // info($cart_items_data);
 
