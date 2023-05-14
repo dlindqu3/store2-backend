@@ -141,7 +141,7 @@ class StripeController extends Controller
                 ->where('email', $email)
                 ->first();
             info("sql email: "); 
-            info($sql);
+            info($sql["email"]);
 
 
             $new_order_obj = [];
