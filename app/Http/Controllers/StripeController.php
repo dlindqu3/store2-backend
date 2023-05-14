@@ -31,14 +31,8 @@ class StripeController extends Controller
 
         $new_metadata = [];
 
-        foreach($req_content as $key => $val) {
-            $new_metadata_item = [
-                "cart_item_id" => $req_content[$key]["cart_item"]["id"],
-                "product_item_id" => $req_content[$key]["product_item"]["id"],
-                "email" => $req_content[$key]["user_email"]
-            ];
-            $new_metadata[$key] = $new_metadata_item;
-        }
+        $new_metadata["email"] = $req_content[1]["user_email"]; 
+        $new_metadata["cart_id"] = $req_content[1]["cart_item"]["id"];
         
         info("new metadata: "); 
         info($new_metadata); 
@@ -62,11 +56,6 @@ class StripeController extends Controller
             array_push($line_items, $new_line_item);
         }
 
-        ## THIS WORKS 
-        info("line items from checkout: "); 
-        info($line_items); 
-        
-        //
         $checkout_session = $stripe->checkout->sessions->create([
             'shipping_address_collection' => ['allowed_countries' => ['US']],
             'payment_method_types' => ['card'],
