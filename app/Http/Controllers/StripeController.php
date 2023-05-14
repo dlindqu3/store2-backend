@@ -160,10 +160,21 @@ class StripeController extends Controller
             info("new_order: "); 
             info($new_order);
             $order_data = json_decode($new_order, true); 
-            info("new order id: ");
-            info($order_data["id"]);
+            // info("new order id: ");
+            // info($order_data["id"]);
 
             ## create orderItems, all with same order_id
+                ## loop over $ip_arr
+            for ($i = 0; $i <= count($ip_arr); $i++) {
+                $current_obj = $ip_arr[$i];
+                $cart_item = $current_obj["cart_item"]; 
+                info("current cart_item: "); 
+                info($cart_item); 
+                $product_item = $current_obj["product_item"];
+                info("current product_item: "); 
+                info($product_item);  
+            }
+
 
             ## delete cart 
 
