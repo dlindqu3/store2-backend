@@ -133,15 +133,12 @@ class StripeController extends Controller
             $postal_code = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["postal_code"];
             $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
 
-            ## NEW 
-            ## get user_id for given email 
-            // returns an array of cart_item objects
             $sql = DB::table("users")
                 ->where('email', $email)
                 ->first();
-            info("sql user data: "); 
+            // info("sql user data: "); 
             $user_data = json_decode(json_encode($sql), true);
-            info($user_data);
+            // info($user_data);
 
 
             $new_order_obj = [];
@@ -163,6 +160,15 @@ class StripeController extends Controller
             info($order_data["id"]);
 
             ## get all cart_items for associated cart_id in metadata
+            $cart_id = $event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"]["cart_id"];
+
+            $sql2 = DB::table("cart_items")
+            ->where("cart_id", $cart_id)
+            ->first();
+
+            info("sql2 cart items data: "); 
+            $cart_items_data = json_decode(json_encode($sql2), true);
+            info($cart_items_data);
 
             ## get all products for associated cart_items
 
