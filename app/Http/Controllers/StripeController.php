@@ -75,7 +75,7 @@ class StripeController extends Controller
         info("checkout url: "); 
         info($checkout_session->url);
 
-        // return $checkout_session->url; 
+        return $checkout_session->url; 
     }
 
     public function stripe_webhook()
@@ -124,12 +124,6 @@ class StripeController extends Controller
         if ($event->type === "payment_intent.succeeded"){
             info("PAYMENT INTENT SUCCEEDED: " . $event);
 
-            // WORKS 
-            $ip_arr = json_decode($event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"], true);
-            info(gettype($ip_arr));
-            info("IP ARR: "); 
-            info($ip_arr);
-
             $total = $event["data"]["object"]["amount"] / 100; 
             $email = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["email"];
             $city = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["city"];
@@ -168,19 +162,9 @@ class StripeController extends Controller
             info("new order id: ");
             info($order_data["id"]);
 
-            ## NEW
-            ## create orderItems, all with same order_id
-                ## loop over $ip_arr
-            for ($i = 0; $i <= count($ip_arr); $i++) {
-                $current_obj = $ip_arr[$i];
-                $cart_item = $current_obj["cart_item"]; 
-                info("current cart_item: "); 
-                info($cart_item); 
-                $product_item = $current_obj["product_item"];
-                info("current product_item: "); 
-                info($product_item);  
-            }
+            ## get all cart_items for associated cart_id in metadata
 
+            ## get all products for associated cart_items
 
             ## delete cart 
 
