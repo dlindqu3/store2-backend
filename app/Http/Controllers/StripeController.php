@@ -172,8 +172,7 @@ class StripeController extends Controller
 
             ## get all cart_items for associated cart_id
             $cart_id = $cart_data["id"];            
-            $sql2 = DB::table("cart_items")
-            ->where("cart_id", $cart_id);
+            $sql2 = DB::select('select * from cart_items where id = :id', ['id' => $cart_id]);
 
             info("sql2 cart items data: "); 
             $cart_items_data = json_decode(json_encode($sql2), true);
