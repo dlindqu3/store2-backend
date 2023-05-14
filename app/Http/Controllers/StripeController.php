@@ -141,7 +141,7 @@ class StripeController extends Controller
                 ->where('email', $email)
                 ->first();
             info("sql user data: "); 
-            $user_data = json_decode($sql, true);
+            $user_data = json_decode(json_encode($sql), true);
             info($user_data);
 
 
