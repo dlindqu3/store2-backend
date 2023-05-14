@@ -171,16 +171,14 @@ class StripeController extends Controller
 
 
             ## get all cart_items for associated cart_id
-            
-            // $sql2 = DB::table("cart_items")
-            // ->where("cart_id", $cart_id)
-            // ->first();
+            $cart_id = $cart_data["id"];            
+            $sql2 = DB::table("cart_items")
+            ->where("cart_id", $cart_id)
+            ->first();
 
-            // info("sql2 cart items data: "); 
-            // info(gettype($sql2));
-            // info($sql2); 
-            // $cart_items_data = json_decode(json_encode($sql2), true);
-            // info($cart_items_data);
+            info("sql2 cart items data: "); 
+            $cart_items_data = json_decode(json_encode($sql2), true);
+            info($cart_items_data);
 
             ## get all products for associated cart_items
 
