@@ -146,17 +146,19 @@ class StripeController extends Controller
 
 
             $new_order_obj = [];
-            // $new_order_obj["user_id"] = ;
-            // $new_order_obj["total_cost"] = ;
-            // $new_order_obj["address_line_one"] = ;
-            // $new_order_obj["address_line_two"] = ;
-            // $new_order_obj["city"] = ;
-            // $new_order_obj["state"] = ;
-            // $new_order_obj["postal_code"] = ;
-            // $new_order_obj["country"] = ;
+            $new_order_obj["user_id"] = $user_data["id"];
+            $new_order_obj["total_cost"] = $total;
+            $new_order_obj["address_line_one"] = $line1;
+            $new_order_obj["address_line_two"] = $line2;
+            $new_order_obj["city"] = $city;
+            $new_order_obj["state"] = $state;
+            $new_order_obj["postal_code"] = $postal_code;
+            $new_order_obj["country"] = $country;
 
             ## create order 
-            // return Order::create();
+            $new_order = Order::create($new_order_obj);
+            info("new_order: "); 
+            info($new_order);
 
             ## send metadata with checkout -- productsItemsData 
 
