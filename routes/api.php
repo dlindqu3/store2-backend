@@ -54,6 +54,7 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::put("/cart_items/{id}", [CartItemController::class, 'update']);
     Route::delete("/cart_items/{id}", [CartItemController::class, 'destroy']);
 
+    Route::get("/user/{email}", [AuthController::class, 'show'])->middleware('auth:sanctum');
     Route::post("/user/logout", [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::get("/orders", [OrderController::class, 'index']);

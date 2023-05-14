@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-## for bcrypt: 
+## Hash is for bcrypt: 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -74,5 +75,12 @@ class AuthController extends Controller
         return response($response, 201); 
     }
 
+    public function show(string $email) 
+    {   
+        // can see table names in migration files
+        $sql = DB::select('select * from users where email = :email', ['email' => $email]);
+
+        return $sql; 
+    }
 
 }

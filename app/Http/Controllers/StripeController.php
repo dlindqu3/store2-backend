@@ -118,6 +118,7 @@ class StripeController extends Controller
         if ($event->type === "payment_intent.succeeded"){
             info("PAYMENT INTENT SUCCEEDED: " . $event);
 
+            // WORKS 
             $ip_arr = json_decode($event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"], true);
             info(gettype($ip_arr));
             info("IP ARR: "); 
@@ -132,16 +133,24 @@ class StripeController extends Controller
             $postal_code = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["postal_code"];
             $state = $event["data"]["object"]["charges"]["data"][0]["billing_details"]["address"]["state"];
 
-            // convert $payload from JSON to an array 
-            //works 
-            $payload_arr = json_decode($payload, true);
-            info("payload arr [id] next line: ");
-            info($payload_arr["id"]);
+            ## NEW 
+            ## get user_id for given email 
+            $current_user = User::show($email);
+            info("current user email: "); 
+            info($current_user["email"]); 
 
-            ## THIS DOESN'T WORK, METADATA IS EMPTY HERE, MUST SEND METADATA WITH PAYMENT INTENT METADATA 
-            // $items_products_data = $payload_arr["data"]["object"]["metadata"]["itemsProductsData"];
-            
+            $new_order_obj = [];
+            // $new_order_obj["user_id"] = ;
+            // $new_order_obj["total_cost"] = ;
+            // $new_order_obj["address_line_one"] = ;
+            // $new_order_obj["address_line_two"] = ;
+            // $new_order_obj["city"] = ;
+            // $new_order_obj["state"] = ;
+            // $new_order_obj["postal_code"] = ;
+            // $new_order_obj["country"] = ;
+
             ## create order 
+            // return Order::create();
 
             ## send metadata with checkout -- productsItemsData 
 
