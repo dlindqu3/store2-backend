@@ -155,12 +155,10 @@ class StripeController extends Controller
             $new_order_obj["postal_code"] = $postal_code;
             $new_order_obj["country"] = $country;
 
-            ## create order 
+            ## create order, WORKS
             $new_order = Order::create($new_order_obj);
             info("new_order: "); 
             info($new_order);
-
-            ## send metadata with checkout -- productsItemsData 
 
             ## create orderItems 
 
