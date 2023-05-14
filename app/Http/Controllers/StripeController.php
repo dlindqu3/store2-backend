@@ -63,11 +63,10 @@ class StripeController extends Controller
             //         ## Here, I am just putting "AAA" for testing
             //        'metadata' => "AAA"
             //    ], 
-
+            
             'payment_intent_data' => [ 
-                    ## Here, I am just putting "AAA" for testing
                    'metadata' => [ 
-                            "AAA" => "BBB"
+                            "itemsProductsData" => $req_content
                    ]
             ], 
             'mode' => 'payment',
