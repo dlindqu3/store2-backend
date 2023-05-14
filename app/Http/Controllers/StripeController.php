@@ -22,6 +22,10 @@ class StripeController extends Controller
 
         $req_content = json_decode($request->getContent(), true);
 
+        info("req_content: "); 
+        info($req_content); 
+        info(typeOf($req_content)); 
+
         $line_items = []; 
 
         $email = "";
@@ -51,19 +55,8 @@ class StripeController extends Controller
             'payment_method_types' => ['card'],
             "customer_email" => $email,
             'line_items' => $line_items,
-            ## NEW
-            ## MUST SEND METADATA WITH PAYMENT INTENT METADATA 
-            // $req is itemsProductsData from frontend
-
-            // THIS DOESN'T WORK 
-            // 'payment_intent_data.metadata' => "AAA", 
             
-            // THIS DOESN'T WORK EITHER 
-            //     'payment_intent_data' => [ 
-            //         ## Here, I am just putting "AAA" for testing
-            //        'metadata' => "AAA"
-            //    ], 
-            
+            ## NEW, works, but need to get $req_content in correct format
             'payment_intent_data' => [ 
                    'metadata' => [ 
                             "itemsProductsData" => $req_content
