@@ -167,8 +167,10 @@ class StripeController extends Controller
             ->first();
 
             info("sql2 cart items data: "); 
-            $cart_items_data = json_decode(json_encode($sql2), true);
-            info($cart_items_data);
+            info(gettype($sql2));
+            info($sql2); 
+            // $cart_items_data = json_decode(json_encode($sql2), true);
+            // info($cart_items_data);
 
             ## get all products for associated cart_items
 
