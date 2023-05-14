@@ -48,3 +48,4 @@
 16. Stack Overflow, "Laravel: add `stdout` stream for logging", [link](https://stackoverflow.com/questions/70126424/laravel-add-stdout-stream-for-logging)
 17. Heroku Dev Center, "PHP Application Logging", [link](https://devcenter.heroku.com/articles/php-logging)
 18. Stack Overflow, "Is it possible to pass custom data to stripe checkout?" [link](https://stackoverflow.com/questions/55742393/is-it-possible-to-pass-custom-data-to-stripe-checkout)
+19. Geeks For Geeks, "How to convert array to string in PHP ?" [link](https://www.geeksforgeeks.org/how-to-convert-array-to-string-in-php/)
