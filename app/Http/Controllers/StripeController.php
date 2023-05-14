@@ -140,8 +140,9 @@ class StripeController extends Controller
             $sql = DB::table("users")
                 ->where('email', $email)
                 ->first();
-            info("sql email: "); 
-            info($sql["email"]);
+            info("sql user data: "); 
+            $user_data = json_decode($sql, true);
+            info($user_data);
 
 
             $new_order_obj = [];
