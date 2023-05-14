@@ -159,8 +159,11 @@ class StripeController extends Controller
             $new_order = Order::create($new_order_obj);
             info("new_order: "); 
             info($new_order);
+            $order_data = json_decode($new_order, true); 
+            info("new order id: ");
+            info($order_data["id"]);
 
-            ## create orderItems 
+            ## create orderItems, all with same order_id
 
             ## delete cart 
 
