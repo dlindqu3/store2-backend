@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,6 +17,13 @@ class StripeController extends Controller
     {
         return Order::create($order_data);
     }
+    
+
+    public function create_order_item_with_args(array $order_item_data)
+    {
+        return OrderItem::create($order_item_data);
+    }
+
 
     public function handle_checkout(Request $request)
     {
@@ -77,6 +85,7 @@ class StripeController extends Controller
 
         return $checkout_session->url; 
     }
+
 
     public function stripe_webhook()
     {
@@ -178,8 +187,23 @@ class StripeController extends Controller
             $cart_items_data = json_decode(json_encode($sql2), true);
             info($cart_items_data);
 
-            ## get all products for associated cart_items
+            ## create order items based on cart_items
+            foreach($cart_items_data as $key => $val) {
+                $current_item_obj = $cart_items_data[$key];
+                $product_id = $current_item_obj["product_id"];
+                $quantity = $current_item_obj["quantity"]; 
 
+                $new_order_item_data = [];
+                $new_order_item_data['product_id'] = $product_id;
+                $new_order_item_data['quantity'] = $quantity;
+
+
+                $new_order_item = self::create_order_item_with_args($new_order_item_data); 
+                info("new order item created: "); 
+                $new_item = json_decode(json_encode($new_order_item), true);
+                info($new_item);
+
+            }
             ## delete cart 
 
             ## create new empty cart 
