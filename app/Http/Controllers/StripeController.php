@@ -118,7 +118,7 @@ class StripeController extends Controller
         if ($event->type === "payment_intent.succeeded"){
             info("PAYMENT INTENT SUCCEEDED: " . $event);
 
-            $ip_arr = json_decode($event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"]);
+            $ip_arr = json_decode($event["data"]["object"]["charges"]["data"][0]["metadata"]["itemsProductsData"], true);
             info(gettype($ip_arr));
             info("IP ARR: "); 
             info($ip_arr);
