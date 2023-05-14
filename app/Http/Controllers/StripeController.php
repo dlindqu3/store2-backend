@@ -50,7 +50,8 @@ class StripeController extends Controller
 
         info("line items from checkout: "); 
         info($line_items); 
-
+        
+        //
         // $checkout_session = $stripe->checkout->sessions->create([
         //     'shipping_address_collection' => ['allowed_countries' => ['US']],
         //     'payment_method_types' => ['card'],
