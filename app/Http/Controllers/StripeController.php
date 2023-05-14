@@ -160,6 +160,15 @@ class StripeController extends Controller
             info($order_data["id"]);
 
             ## get cart_id based on $user_data
+            $user_id = $user_data['id']; 
+            $sql1 = DB::table("carts")
+            ->where("user_id", $user_id)
+            ->first();
+
+            $cart_data = json_decode(json_encode($sql1), true);
+            info("current cart: "); 
+            info($cart_data); 
+
 
             ## get all cart_items for associated cart_id
             
