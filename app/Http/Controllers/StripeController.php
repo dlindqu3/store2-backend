@@ -48,29 +48,27 @@ class StripeController extends Controller
             array_push($line_items, $new_line_item);
         }
 
-        ## NEW 
-        // info("req from checkout: " . $req); 
+        info("line items from checkout: "); 
+        info($line_items); 
 
-        $checkout_session = $stripe->checkout->sessions->create([
-            'shipping_address_collection' => ['allowed_countries' => ['US']],
-            'payment_method_types' => ['card'],
-            "customer_email" => $email,
-            'line_items' => $line_items,
+        // $checkout_session = $stripe->checkout->sessions->create([
+        //     'shipping_address_collection' => ['allowed_countries' => ['US']],
+        //     'payment_method_types' => ['card'],
+        //     "customer_email" => $email,
+        //     'line_items' => $line_items,
             
-            ## works
-            'payment_intent_data' => [ 
-                   'metadata' => [ 
-                            "itemsProductsData" => json_encode($req_content)
-                   ]
-            ], 
-            'mode' => 'payment',
-            'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
-            'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
-          ]);
+        //     ## works
+        //     'payment_intent_data' => [ 
+        //            'metadata' => [ 
+        //                     "itemsProductsData" => json_encode($req_content)
+        //            ]
+        //     ], 
+        //     'mode' => 'payment',
+        //     'success_url' => 'https://store2-frontend.vercel.app/checkout-success',
+        //     'cancel_url' => 'https://store2-frontend.vercel.app/checkout-cancelled',
+        //   ]);
           
-
-
-        return $checkout_session->url; 
+        // return $checkout_session->url; 
     }
 
     public function stripe_webhook()
@@ -160,9 +158,10 @@ class StripeController extends Controller
             info("new_order: "); 
             info($new_order);
             $order_data = json_decode($new_order, true); 
-            // info("new order id: ");
-            // info($order_data["id"]);
+            info("new order id: ");
+            info($order_data["id"]);
 
+            ## NEW
             ## create orderItems, all with same order_id
                 ## loop over $ip_arr
             for ($i = 0; $i <= count($ip_arr); $i++) {
