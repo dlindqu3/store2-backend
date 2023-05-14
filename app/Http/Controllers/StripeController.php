@@ -24,7 +24,7 @@ class StripeController extends Controller
 
         info("req_content: "); 
         info($req_content); 
-        info(typeOf($req_content)); 
+        info(gettype($req_content)); 
 
         $line_items = []; 
 
