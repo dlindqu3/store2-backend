@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\CartItemController;
@@ -61,6 +62,8 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
     Route::get("/orders/{id}", [OrderController::class, 'show']);
     Route::put("/orders/{id}", [OrderController::class, 'update']);
     Route::delete("/orders/{id}", [OrderController::class, 'destroy']);
+
+    Route::get("/order_items", [OrderItemController::class, 'index']);
 
     Route::post("/checkout", [StripeController::class, 'handle_checkout']);
 });

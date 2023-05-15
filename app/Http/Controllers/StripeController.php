@@ -200,7 +200,7 @@ class StripeController extends Controller
                 $new_order_item_data['product_id'] = $product_id;
                 $new_order_item_data['quantity'] = $quantity;
 
-
+                // works 
                 $new_order_item = self::create_order_item_with_args($new_order_item_data); 
                 info("new order item created: "); 
                 $new_item = json_decode(json_encode($new_order_item), true);

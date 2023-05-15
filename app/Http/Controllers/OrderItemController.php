@@ -27,4 +27,8 @@ class OrderItemController extends Controller
         return $sql;
     }
 
+    public function index()
+    {
+        return OrderItem::all(); 
+    }
 }
