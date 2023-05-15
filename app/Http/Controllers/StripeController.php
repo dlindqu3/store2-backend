@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Order;
+use App\Models\Cart;
 use App\Models\User;
 use Stripe;
 
@@ -22,6 +23,17 @@ class StripeController extends Controller
     public function create_order_item_with_args(array $order_item_data)
     {
         return OrderItem::create($order_item_data);
+    }
+
+
+    public function delete_cart_with_args(string $user_id)
+    {
+        return Cart::destroy($user_id);
+    }
+
+    public function create_cart_with_args(string $user_id)
+    {
+        return Cart::create($user_id);
     }
 
 
@@ -208,9 +220,16 @@ class StripeController extends Controller
 
             }
             ## delete cart 
+            $deleted_cart = self::delete_cart_with_args($user_id); 
+            info("cart deleted: "); 
+            $deleted_cart_res = json_decode(json_encode($deleted_cart), true);
+            info($deleted_cart_res);
 
             ## create new empty cart 
-
+            $new_cart = self::create_cart_with_args($user_id);
+            info("cart created: "); 
+            $created_cart_res = json_decode(json_encode($new_cart), true);
+            info($created_cart_res);
 
             return $event; 
         }
