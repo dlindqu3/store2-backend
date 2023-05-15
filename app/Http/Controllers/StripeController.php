@@ -219,17 +219,18 @@ class StripeController extends Controller
                 info($new_item);
 
             }
-            ## delete cart 
+            ## delete cart, WORKS 
             $deleted_cart = self::delete_cart_with_args($user_id); 
             info("cart deleted: "); 
             $deleted_cart_res = json_decode(json_encode($deleted_cart), true);
             info($deleted_cart_res);
 
             ## create new empty cart 
+            info("calling create_cart_with_args: "); 
             $new_cart = self::create_cart_with_args($user_id);
-            info("cart created: "); 
-            $created_cart_res = json_decode(json_encode($new_cart), true);
-            info($created_cart_res);
+            // info("cart created: "); 
+            // $created_cart_res = json_decode(json_encode($new_cart), true);
+            // info($created_cart_res);
 
             return $event; 
         }
