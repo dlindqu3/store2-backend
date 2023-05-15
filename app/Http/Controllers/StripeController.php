@@ -28,7 +28,11 @@ class StripeController extends Controller
 
     public function delete_cart_with_args(string $user_id)
     {
-        return Cart::destroy($user_id);
+        $delete = Cart::where('user_id', $user_id)
+                    ->delete();
+        // return Cart::destroy($user_id);
+        return $delete;
+        
     }
 
     public function create_cart_with_args(array $user_id_array)
