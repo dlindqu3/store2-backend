@@ -13,6 +13,7 @@ class CartController extends Controller
      */
     public function index()
     {
+        // total_cost returns as a NUMBER here 
         return Cart::all(); 
     }
 
@@ -32,7 +33,13 @@ class CartController extends Controller
     public function show(string $user_id) 
     {   
         // can see table names in migration files
-        $sql = DB::select('select * from carts where user_id = :id', ['id' => $user_id]);
+        // total_cost returns as a STRING here, with DB::select. WHY 
+        // $sql = DB::select('select * from carts where user_id = :id', ['id' => $user_id]);
+
+        // total_cost returns as a number here, as expected
+        $sql = Cart::select('*')
+        ->where('user_id', '=', $user_id)
+        ->get();
 
         return $sql; 
     }

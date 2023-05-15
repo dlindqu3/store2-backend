@@ -49,4 +49,7 @@ class OrderController extends Controller
         return Order::destroy($id);
     }
 
+    ## ADD METHOD TO GET ALL ORDERS FOR GIVEN USER
+    
+
 }
