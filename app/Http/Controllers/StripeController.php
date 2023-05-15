@@ -190,10 +190,13 @@ class StripeController extends Controller
             ## create order items based on cart_items
             foreach($cart_items_data as $key => $val) {
                 $current_item_obj = $cart_items_data[$key];
+
+                $order_id = $order_data["id"]; 
                 $product_id = $current_item_obj["product_id"];
                 $quantity = $current_item_obj["quantity"]; 
 
                 $new_order_item_data = [];
+                $new_order_item_data['order_id'] = $order_id;
                 $new_order_item_data['product_id'] = $product_id;
                 $new_order_item_data['quantity'] = $quantity;
 
