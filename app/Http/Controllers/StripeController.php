@@ -31,9 +31,9 @@ class StripeController extends Controller
         return Cart::destroy($user_id);
     }
 
-    public function create_cart_with_args(string $user_id)
+    public function create_cart_with_args(array $user_id_array)
     {
-        return Cart::create($user_id);
+        return Cart::create($user_id_array);
     }
 
 
@@ -227,10 +227,14 @@ class StripeController extends Controller
 
             ## create new empty cart 
             info("calling create_cart_with_args: "); 
-            $new_cart = self::create_cart_with_args($user_id);
-            // info("cart created: "); 
-            // $created_cart_res = json_decode(json_encode($new_cart), true);
-            // info($created_cart_res);
+            $user_id_arr = [
+                "user_id" => $user_id
+            ]; 
+
+            $new_cart = self::create_cart_with_args($user_id_arr);
+            info("cart created: "); 
+            $created_cart_res = json_decode(json_encode($new_cart), true);
+            info($created_cart_res);
 
             return $event; 
         }
