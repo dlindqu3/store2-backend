@@ -69,6 +69,6 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
 
     Route::get("/orders_for_user/{id}", [OrderController::class, 'get_orders_with_user_id']);
 
-    Route::get("/order_items_for_order", [OrderItemController::class, 'get_order_items_with_order_id']);
+    Route::get("/order_items_for_order/{id}", [OrderItemController::class, 'get_order_items_with_order_id']);
 
 });

@@ -32,12 +32,11 @@ class OrderItemController extends Controller
         return OrderItem::all(); 
     }
 
-    public function get_order_items_with_order_id(Request $request)
+    public function get_order_items_with_order_id(string $id)
     {
-        $order_id = $request['order_id'];
         // returns an array of order item objects
         $sql = OrderItem::select('*')
-        ->where('order_id', '=', $order_id)
+        ->where('order_id', '=', $id)
         ->get();
     
         return $sql;
