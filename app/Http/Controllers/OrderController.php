@@ -49,7 +49,6 @@ class OrderController extends Controller
         return Order::destroy($id);
     }
 
-    ## ADD METHOD TO GET ALL ORDERS FOR GIVEN USER
     public function get_orders_with_user_id(Request $request)
     {
         $user_id = $request['user_id'];

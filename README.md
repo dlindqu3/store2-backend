@@ -26,3 +26,4 @@
 17. Heroku Dev Center, "PHP Application Logging", [link](https://devcenter.heroku.com/articles/php-logging)
 18. Stack Overflow, "Is it possible to pass custom data to stripe checkout?" [link](https://stackoverflow.com/questions/55742393/is-it-possible-to-pass-custom-data-to-stripe-checkout)
 19. Geeks For Geeks, "How to convert array to string in PHP ?" [link](https://www.geeksforgeeks.org/how-to-convert-array-to-string-in-php/)
+20. Stack Overflow, "Laravel - API return fields as string while they are int in the DB" [link](https://stackoverflow.com/questions/60966383/laravel-api-return-fields-as-string-while-they-are-int-in-the-db)
