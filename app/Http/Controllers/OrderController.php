@@ -49,9 +49,8 @@ class OrderController extends Controller
         return Order::destroy($id);
     }
 
-    public function get_orders_with_user_id(Request $request)
+    public function get_orders_with_user_id(string $user_id)
     {
-        $user_id = $request['user_id'];
         // returns an array of order objects
         $sql = Order::select('*')
         ->where('user_id', '=', $user_id)

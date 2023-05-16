@@ -67,7 +67,7 @@ Route::group([ 'middleware' => ['auth:sanctum']], function () {
 
     Route::post("/checkout", [StripeController::class, 'handle_checkout']);
 
-    Route::get("/orders_for_user", [OrderController::class, 'get_orders_with_user_id']);
+    Route::get("/orders_for_user/{id}", [OrderController::class, 'get_orders_with_user_id']);
 
     Route::get("/order_items_for_order", [OrderItemController::class, 'get_order_items_with_order_id']);
 
