@@ -50,6 +50,15 @@ class OrderController extends Controller
     }
 
     ## ADD METHOD TO GET ALL ORDERS FOR GIVEN USER
-    
+    public function get_orders_with_user_id(Request $request)
+    {
+        $user_id = $request['user_id'];
+        // returns an array of order objects
+        $sql = Order::select('*')
+        ->where('user_id', '=', $user_id)
+        ->get();
+
+        return $sql;
+    }
 
 }
