@@ -1,3 +1,16 @@
+## overview 
+- This site was developed as a portfolio project by Dwight Lindquist. It is the second iteration of his ecommerce store app, this time built with React, Laravel, and SQL. 
+- Visitors can create user accounts then browse for various fake products. They can then add products to a cart, proceed to a checkout handled by Stripe, then see records of past orders from their account. The user is advised to use the credit card number "4242 4242 4242 4242" in order to successfully proceed with a fake payment via Stripe. 
+
+
+## deployed url
+- https://store2-backend.herokuapp.com/
+
+
+## frontend repository on GitHub 
+- https://github.com/dlindqu3/store2-frontend
+
+
 ## notes 
 - run: php artisan serve 
 
